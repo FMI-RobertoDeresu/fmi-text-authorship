@@ -1,11 +1,10 @@
 from ranking_mapper import map_data
-
-test = "it was the best of times it was the worst of times it was the age of wisdom it was the age of foolishness"
-print (map_data(test))
-
+from federalist_parser import parse_federalist_papers_file
 
 def run():
-    pass
+    dataset = parse_federalist_papers_file('input/The_federalist_papers.txt')
+    dataset.head()
+
     # mnist_train, mnist_eval = tf.keras.datasets.mnist.load_data()
     #
     # if FLAGS['train_method_flag'].value & 1:
