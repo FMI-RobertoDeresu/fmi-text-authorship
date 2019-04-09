@@ -1,19 +1,18 @@
 from function_words import function_words
 from itertools import groupby
 from operator import itemgetter
+from nltk.tokenize import RegexpTokenizer
 
 
-def map_data_list(data):
-    mapped_data = list(map(lambda x: map_data(x), data))
-    return mapped_data
-
-
-def map_data(data_str):
+def map_data(input):
     # function word frequencies
-    data_words = data_str.lower().split()
+    input = input.lower()
+    tokenizer = RegexpTokenizer(r'\w+')
+    words = tokenizer.tokenize(input)
+
     function_words_freq = []
     for i, function_word in enumerate(function_words):
-        function_words_freq.append((i, data_words.count(function_word)))
+        function_words_freq.append((i, words.count(function_word)))
 
     function_words_freq.sort(key=itemgetter(1), reverse=True)
 
