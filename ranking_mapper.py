@@ -1,4 +1,4 @@
-from function_words import function_words
+import function_words
 from itertools import groupby
 from operator import itemgetter
 from nltk.tokenize import RegexpTokenizer
@@ -11,7 +11,7 @@ def map_data(input):
     words = tokenizer.tokenize(input)
 
     function_words_freq = []
-    for i, function_word in enumerate(function_words):
+    for i, function_word in enumerate(function_words.use_for_train):
         function_words_freq.append((i, words.count(function_word)))
 
     function_words_freq.sort(key=itemgetter(1), reverse=True)
