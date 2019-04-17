@@ -1,93 +1,87 @@
 import os
 import numpy as np
-import tensorflow as tf
-import ranking_mapper
-from parsers import federalist_parser
-import data_plot
+import sklearn
+import feature_extraction
+import kernels
+import parsers
 import function_words
 
-tf.logging.set_verbosity(tf.logging.ERROR)
-
 federalist_papers_path = os.path.join(os.path.dirname(__file__), 'input\\The_federalist_papers.txt')
-federalist_papers_path_authors = {
+federalist_papers_authors = {
     "HAMILTON": 0,
     "MADISON": 1,
-    # "JAY": 2
+    "JAY": 2
 }
 
 
-def svm_with_rank_kernel(dataset):
-    # for index, dataset_value in enumerate(dataset.values):
-    #     print('{} -- {} -- {}'.format(dataset_value[0], dataset_value[1], ranking_mapper.map_data(dataset_value[2])))
-
-    # data processing
-    train_dataset_values = list(filter(lambda x: x[1] in federalist_papers_path_authors.keys(), dataset.values))
-    eval_dataset_values = list(filter(lambda x: x[1] == "HAMILTON OR MADISON", dataset.values))
-
-    train_data = (list(map(lambda x: ranking_mapper.map_data(x[2]), train_dataset_values)),
-                  list(map(lambda x: federalist_papers_path_authors[x[1]], train_dataset_values)))
-
-    predict_data = (list(map(lambda x: ranking_mapper.map_data(x[2]), eval_dataset_values)),)
-
-    # data_plot.plot(train_data)
-
+def svm_with_rank_distance(train_data, eval_data):
     # train
-    features, labels = (np.array(train_data[0]), np.array(train_data[1]))
+    train_features, train_labels = (np.array(train_data[0]), np.array(train_data[1]))
 
-    features_column_name = 'features'
-    example_id_column_name = 'example_id'
-    example_id = np.array(['%d' % i for i in range(len(features))])
-    kernel_features_dimension = len(function_words.use_for_train)
+    svm = sklearn.svm.SVC(kernel=kernels.linear_normalized, probability=True)
+    svm.fit(train_features, train_labels)
 
-    print("Train:")
-    print("Kernel features dimension: {}".format(kernel_features_dimension))
-    # for index, dataset_value in enumerate(train_dataset_values):
-    #     print('{} -- {} -- {}'.format(dataset_value[0], dataset_value[1], labels[index]))
+    # eval
+    eval_features, eval_labels = (np.array(eval_data[0]), np.array(eval_data[1]))
 
-    train_input_fn = tf.estimator.inputs.numpy_input_fn(
-        x={features_column_name: features, example_id_column_name: example_id},
-        y=labels,
-        num_epochs=None,
-        shuffle=True)
+    predict = svm.predict(eval_features)
+    predict_log = svm.predict_proba(eval_features)
+    predict_score = svm.score(eval_features, eval_labels)
 
-    svm = tf.contrib.learn.SVM(
-        example_id_column=example_id_column_name,
-        feature_columns=[tf.contrib.layers.real_valued_column(
-            column_name=features_column_name,
-            dimension=kernel_features_dimension)],
-        l2_regularization=0.1
-    )
+    return predict, predict_log, predict_score
 
-    svm.fit(input_fn=train_input_fn, steps=8000)
 
-    # predict
-    features = np.array(predict_data[0])
-    example_id = np.array(['%d' % i for i in range(len(features))])
+def k_neighbors_with_rank_distance(train_data, eval_data):
+    # train
+    train_features, train_labels = (np.array(train_data[0]), np.array(train_data[1]))
 
-    test_input_fn = tf.estimator.inputs.numpy_input_fn(
-        x={features_column_name: features, example_id_column_name: example_id},
-        num_epochs=1,
-        shuffle=False)
+    svm = sklearn.neighbors.KNeighborsClassifier(n_neighbors=3)
+    svm.fit(train_features, train_labels)
 
-    predict = list(svm.predict(input_fn=test_input_fn))
+    # eval
+    eval_features, eval_labels = (np.array(eval_data[0]), np.array(eval_data[1]))
 
-    # data_plot.plot((features, list(map(lambda x: x["classes"], predict))))
+    predict = svm.predict(eval_features)
+    predict_log = svm.predict_proba(eval_features)
+    predict_score = svm.score(eval_features, eval_labels)
 
-    # print results
-    print("Predict:")
+    return predict, predict_log, predict_score
+
+
+def print_results(eval_dataset_values, eval_labels, predict, predict_log, predict_score):
+    print("Eval:")
+    print("Score: {}".format(predict_score))
     for index, dataset_value in enumerate(eval_dataset_values):
-        print('{} -- {} -- {} -- {}'.format(
+        print('{} -- {} -- {} -- {} -- {}'.format(
             dataset_value[0],
             dataset_value[1],
-            predict[index]["classes"],
-            predict[index]["logits"]))
+            eval_labels[index],
+            predict[index],
+            predict_log[index]))
 
 
-def run_federalist():
-    dataset = federalist_parser.parse(federalist_papers_path)
-    for i in range(3):
-        svm_with_rank_kernel(dataset)
+def run():
+    dataset = parsers.parse_federalist_papers(federalist_papers_path)
+    stop_words = function_words.mosteller_and_wallace
+
+    train_dataset_values = list(filter(lambda x: x[1] in list(federalist_papers_authors.keys())[:2], dataset.values))
+    train_data = (list(map(lambda x: feature_extraction.ranking_distance(x[2], stop_words), train_dataset_values)),
+                  list(map(lambda x: federalist_papers_authors[x[1]], train_dataset_values)))
+
+    eval_dataset_values = list(filter(lambda x: x[1] == "HAMILTON OR MADISON", dataset.values))
+    eval_data = (list(map(lambda x: feature_extraction.ranking_distance(x[2], stop_words), eval_dataset_values)),
+                 [1] * 11)
+
+    print("\nSVM with rank distance:")
+    for i in range(1):
+        predict, predict_log, predict_score = svm_with_rank_distance(train_data, eval_data)
+        print_results(eval_dataset_values, eval_data[1], predict, predict_log, predict_score)
+
+    print("\nKNeighbors with rank distance:")
+    for i in range(1):
+        predict, predict_log, predict_score = k_neighbors_with_rank_distance(train_data, eval_data)
+        print_results(eval_dataset_values, eval_data[1], predict, predict_log, predict_score)
 
 
 if __name__ == "__main__":
-    run_federalist()
+    run()

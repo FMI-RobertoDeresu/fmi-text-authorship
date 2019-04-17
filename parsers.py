@@ -2,7 +2,7 @@ import pandas as pd
 import re
 
 
-def parse(file_path):
+def parse_federalist_papers(file_path):
     with open(file_path) as f:
         content = f.read()
 

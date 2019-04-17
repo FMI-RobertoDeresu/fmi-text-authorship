@@ -1,17 +1,16 @@
-import function_words
 from itertools import groupby
 from operator import itemgetter
 from nltk.tokenize import RegexpTokenizer
 
 
-def map_data(input):
+def ranking_distance(input, stop_words):
     # function word frequencies
     input = input.lower()
     tokenizer = RegexpTokenizer(r'\w+')
     words = tokenizer.tokenize(input)
 
     function_words_freq = []
-    for i, function_word in enumerate(function_words.use_for_train):
+    for i, function_word in enumerate(stop_words):
         function_words_freq.append((i, words.count(function_word)))
 
     function_words_freq.sort(key=itemgetter(1), reverse=True)
