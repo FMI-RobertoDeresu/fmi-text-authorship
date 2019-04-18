@@ -5,7 +5,9 @@
       <w>datasets</w>
       <w>dequeue</w>
       <w>iters</w>
+      <w>kneighbors</w>
       <w>mnist</w>
+      <w>ngrams</w>
     </words>
   </dictionary>
 </component>

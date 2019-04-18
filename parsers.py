@@ -36,7 +36,7 @@ def parse_federalist_papers(file_path):
         paper_data = {
             'no': content[paper_no_start:paper_no_end],
             'author': content[paper_author_start:paper_author_end],
-            'content': content[paper_content_start:paper_content_end]
+            'content': re.sub(r"\s+", " ", content[paper_content_start:paper_content_end])
         }
 
         dataset = dataset.append(paper_data, ignore_index=True)

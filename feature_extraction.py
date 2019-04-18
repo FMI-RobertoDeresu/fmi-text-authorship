@@ -1,13 +1,18 @@
+import time
+import nltk
 from itertools import groupby
 from operator import itemgetter
-from nltk.tokenize import RegexpTokenizer
+import collections
+
+ranking_distance_tokenizer = nltk.tokenize.RegexpTokenizer(r'\w+')
+n_grams_tokenizer = nltk.tokenize.RegexpTokenizer(r'[a-z\,\.\s\']')
+# n_grams_tokenizer = nltk.tokenize.RegexpTokenizer(r'[a-z]')
 
 
 def ranking_distance(input, stop_words):
     # function word frequencies
     input = input.lower()
-    tokenizer = RegexpTokenizer(r'\w+')
-    words = tokenizer.tokenize(input)
+    words = ranking_distance_tokenizer.tokenize(input)
 
     function_words_freq = []
     for i, function_word in enumerate(stop_words):
@@ -31,3 +36,37 @@ def ranking_distance(input, stop_words):
     ranking = list(map(itemgetter(1), ranking))
 
     return ranking
+
+
+def n_grams_keys(inputs, n):
+    now = time.time()
+
+    n_grams_keys_list = []
+    for input in inputs:
+        chars = n_grams_tokenizer.tokenize(input.lower())
+        n_grams_list = list(map(lambda x: ''.join(x), nltk.ngrams(chars, n)))
+        n_grams_keys_list = n_grams_keys_list + n_grams_list
+
+    n_grams_counter = collections.Counter(n_grams_keys_list)
+    print(n_grams_counter.most_common(40000))
+
+    n_grams_keys_list = list(map(lambda x: x[0], n_grams_counter.most_common(40000)))
+
+    print(time.time() - now)
+    print(len(n_grams_keys_list))
+    print(n_grams_keys_list)
+
+    return n_grams_keys_list
+
+
+def n_grams(input, n_grams_keys_list, n):
+    now = time.time()
+
+    chars = n_grams_tokenizer.tokenize(input.lower())
+    n_grams_list = list(map(lambda x: ''.join(x), nltk.ngrams(chars, n)))
+    n_grams_counter = collections.Counter(n_grams_list)
+    n_grams_values = [n_grams_counter[ngram_key] for ngram_key in n_grams_keys_list]
+
+    print(time.time() - now)
+
+    return n_grams_values
