@@ -1,12 +1,11 @@
-import time
 import nltk
 from itertools import groupby
 from operator import itemgetter
 import collections
+import re
 
 ranking_distance_tokenizer = nltk.tokenize.RegexpTokenizer(r'\w+')
-n_grams_tokenizer = nltk.tokenize.RegexpTokenizer(r'[a-z\,\.\s\']')
-# n_grams_tokenizer = nltk.tokenize.RegexpTokenizer(r'[a-z]')
+n_grams_tokenizer = nltk.tokenize.RegexpTokenizer(r'[a-z\,]')
 
 
 def ranking_distance(input, stop_words):
@@ -38,35 +37,29 @@ def ranking_distance(input, stop_words):
     return ranking
 
 
-def n_grams_keys(inputs, n):
-    now = time.time()
-
+def n_grams_keys(inputs, n_min, n_max, n_most_common):
     n_grams_keys_list = []
     for input in inputs:
         chars = n_grams_tokenizer.tokenize(input.lower())
-        n_grams_list = list(map(lambda x: ''.join(x), nltk.ngrams(chars, n)))
-        n_grams_keys_list = n_grams_keys_list + n_grams_list
+        for n in range(n_min, n_max+1):
+            n_grams_list = list(map(lambda x: ''.join(x), nltk.ngrams(chars, n)))
+            n_grams_keys_list = n_grams_keys_list + n_grams_list
 
     n_grams_counter = collections.Counter(n_grams_keys_list)
-    print(n_grams_counter.most_common(40000))
-
-    n_grams_keys_list = list(map(lambda x: x[0], n_grams_counter.most_common(40000)))
-
-    print(time.time() - now)
-    print(len(n_grams_keys_list))
-    print(n_grams_keys_list)
+    n_grams_keys_list = list(map(lambda x: x[0], n_grams_counter.most_common(n_most_common)))
+    # n_grams_keys_list = list(filter(lambda x: re.search("[\.\,]", x) is not None, n_grams_keys_list))
 
     return n_grams_keys_list
 
 
-def n_grams(input, n_grams_keys_list, n):
-    now = time.time()
-
+def n_grams(input, n_grams_keys_list, n_min, n_max):
     chars = n_grams_tokenizer.tokenize(input.lower())
-    n_grams_list = list(map(lambda x: ''.join(x), nltk.ngrams(chars, n)))
+
+    n_grams_list = []
+    for n in range(n_min, n_max + 1):
+        n_grams_list = n_grams_list + list(map(lambda x: ''.join(x), nltk.ngrams(chars, n)))
+
     n_grams_counter = collections.Counter(n_grams_list)
     n_grams_values = [n_grams_counter[ngram_key] for ngram_key in n_grams_keys_list]
-
-    print(time.time() - now)
 
     return n_grams_values

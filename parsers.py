@@ -1,5 +1,21 @@
 import pandas as pd
 import re
+from input import test
+
+
+def parse_test():
+    dataset = pd.DataFrame(columns=['no', 'author', 'content'])
+
+    for item in test.input:
+        line_data = {
+            'no': item["no"],
+            'author': item['author'],
+            'content': re.sub(r"\s+", " ", item['content'])
+        }
+
+        dataset = dataset.append(line_data, ignore_index=True)
+
+    return dataset
 
 
 def parse_federalist_papers(file_path):
@@ -42,3 +58,6 @@ def parse_federalist_papers(file_path):
         dataset = dataset.append(paper_data, ignore_index=True)
 
     return dataset
+
+
+

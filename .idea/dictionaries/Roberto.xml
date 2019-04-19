@@ -1,6 +1,8 @@
 <component name="ProjectDictionaryState">
   <dictionary name="Roberto">
     <words>
+      <w>clasici</w>
+      <w>continut</w>
       <w>dataset</w>
       <w>datasets</w>
       <w>dequeue</w>
@@ -8,6 +10,7 @@
       <w>kneighbors</w>
       <w>mnist</w>
       <w>ngrams</w>
+      <w>probs</w>
     </words>
   </dictionary>
 </component>
