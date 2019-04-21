@@ -1,0 +1,3 @@
+
+
+All fixed price locations (ERCOT, Ent, Cin, TVA, SOCO, Com-<NAME/>, PJM, NEPOOL, etc.).   The biggest Cal positions are Cin, Ent, PJM, and NEPOOL.

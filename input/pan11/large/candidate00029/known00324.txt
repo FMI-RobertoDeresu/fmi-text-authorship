@@ -1,0 +1,11 @@
+
+
+Of these positions, where the counterparty has not terminated, and there is only FX/rate activity, I find only:
+
+Goldman Sachs & Co.
+
+<NAME/> and <NAME/> are reviewing this one - it may be repo activity.
+
+I am still trying to clarify what we can be doing for in-the-money terminated positions.
+
+We can discuss further at 2:30.

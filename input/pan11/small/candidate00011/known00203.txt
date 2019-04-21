@@ -1,0 +1,6 @@
+
+
+<NAME/> needs to be set up with a certificate for the Ercot Portal.    Is there a form I need to fill out for this?
+
+
+<NAME/>

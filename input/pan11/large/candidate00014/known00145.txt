@@ -1,0 +1,4 @@
+
+
+DBD::ODBC works like a charm.  if you're already using DBI, i don't think you'll have 
+much trouble with the transition, assuming you're doing anything funky.

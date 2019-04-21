@@ -1,4 +1,4 @@
-# Continut generate pe https://lroemipsum.dutylabs.ro
+# Continut generat pe https://lroemipsum.dutylabs.ro
 input = [
     {
         "no": "1",

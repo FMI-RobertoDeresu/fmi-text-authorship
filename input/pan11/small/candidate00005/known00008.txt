@@ -1,0 +1,28 @@
+
+
+P&L Responsibility 
+
+
+Midcontinent Region
+
+<NAME/> <NAME/> - Basis and Gas Daily
+                    PEPL, ANR-ok, NNG-Demarc, NNG-Vent, NGPL-midcon
+
+<NAME/> <NAME/> - Cash trading and index
+                    PEPL, ANR-ok, NNG-Demarc, NNG-Vent, NGPL-midcon
+
+
+
+Market Area
+
+<NAME/> Shively - Basis and Gas Daily
+                        <NAME/>
+
+<NAME/> Storey - Basis and Gas Daily
+                    Michcon and <NAME/>
+
+Vladi Pimenov - Cash trading and Index (no VAR)
+                        <NAME/>
+
+Souad Mahmassani - Cash trading and Index (no VAR)
+                                Michcon and <NAME/>

@@ -1,0 +1,6 @@
+
+
+there is a book request form in Netco\controls\Book request form.xls.  I put in the west desk books already.  <NAME/> is checking to see if we can use those portfolio and book codes, if not we'll change them.
+
+
+<NAME/>

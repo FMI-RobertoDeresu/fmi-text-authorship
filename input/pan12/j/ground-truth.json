@@ -1,0 +1,21 @@
+{
+"ground-truth":
+[
+{"unknown-text": "unknown00001.txt", "true-author": "candidate00013"},
+{"unknown-text": "unknown00002.txt", "true-author": "candidate00014"},
+{"unknown-text": "unknown00003.txt", "true-author": "candidate00005"},
+{"unknown-text": "unknown00004.txt", "true-author": "candidate00007"},
+{"unknown-text": "unknown00005.txt", "true-author": "candidate00000"},
+{"unknown-text": "unknown00006.txt", "true-author": "candidate00003"},
+{"unknown-text": "unknown00007.txt", "true-author": "candidate00001"},
+{"unknown-text": "unknown00008.txt", "true-author": "candidate00008"},
+{"unknown-text": "unknown00009.txt", "true-author": "candidate00012"},
+{"unknown-text": "unknown00010.txt", "true-author": "candidate00004"},
+{"unknown-text": "unknown00011.txt", "true-author": "candidate00009"},
+{"unknown-text": "unknown00012.txt", "true-author": "candidate00006"},
+{"unknown-text": "unknown00013.txt", "true-author": "candidate00000"},
+{"unknown-text": "unknown00014.txt", "true-author": "candidate00010"},
+{"unknown-text": "unknown00015.txt", "true-author": "candidate00011"},
+{"unknown-text": "unknown00016.txt", "true-author": "candidate00002"}
+]
+}

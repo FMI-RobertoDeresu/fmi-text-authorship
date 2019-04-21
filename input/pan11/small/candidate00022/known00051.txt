@@ -1,0 +1,7 @@
+
+
+<NAME/>, 
+
+I began digging further into how this was scheduled yesterday.  It does not look very good.  I will re-work it today and let you know when I'm done.
+
+D

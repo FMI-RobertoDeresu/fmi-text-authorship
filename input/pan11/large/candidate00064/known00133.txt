@@ -1,0 +1,5 @@
+
+
+Please ensure that real-time prices for ERCOT, PJM, NY, and NEPOOL are added to the cube database.   I have been analyzing the data today and the real-time clearing prices are not there.
+
+Thanks.

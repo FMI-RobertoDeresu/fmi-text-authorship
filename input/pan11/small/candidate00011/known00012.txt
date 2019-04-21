@@ -1,0 +1,7 @@
+
+
+<NAME/>,   things look better  but,    <NAME/> does not have access to the EPMI Hourly Ercot book.       This is the book that he trades primarily.
+He also needs EPMI Ercot Asset.
+
+Thanks,
+<NAME/>

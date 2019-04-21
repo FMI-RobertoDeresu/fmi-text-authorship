@@ -1,0 +1,8 @@
+
+
+Zimin,
+
+Are you interested in this dinner?
+Please, respond to <NAME/> directly.
+
+<NAME/>

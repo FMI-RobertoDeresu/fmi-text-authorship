@@ -1,0 +1,11 @@
+
+
+Please change the payment information in the letter to the following:
+
+  <NAME/> North America Corp.
+   P.O. 840201
+   Dallas, Tx 75284-0201
+
+ With these changes you are go to trade.  
+ 
+<NAME/>

@@ -1,0 +1,8 @@
+
+
+Hello <NAME/>,
+
+It was nice to hear from you.
+What are your coordinates?
+
+<NAME/>

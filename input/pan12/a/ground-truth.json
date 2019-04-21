@@ -1,0 +1,11 @@
+{
+"ground-truth":
+[
+{"unknown-text": "unknown00001.txt", "true-author": "candidate00003"},
+{"unknown-text": "unknown00002.txt", "true-author": "candidate00002"},
+{"unknown-text": "unknown00003.txt", "true-author": "candidate00003"},
+{"unknown-text": "unknown00004.txt", "true-author": "candidate00001"},
+{"unknown-text": "unknown00005.txt", "true-author": "candidate00001"},
+{"unknown-text": "unknown00006.txt", "true-author": "candidate00002"}
+]
+}

@@ -1,0 +1,7 @@
+
+
+Good morning.
+We are off in position manager at Mid Columbia because of <NAME/> Canada. I notified <NAME/> at <NAME/> Canada at approximately 6:15 this morning. Position manager is also not working properly, it is reporting a variance at Pacificorp system border ? and at Palo Verde. However the position manager shows no variance when detail is clicked.
+If you have questions, let me know.
+Thanks,
+<NAME/>

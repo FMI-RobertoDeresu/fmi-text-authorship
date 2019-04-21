@@ -1,0 +1,16 @@
+
+
+<NAME/>,
+
+
+I need to get whatever access <NAME/> and <NAME/> had to AlbertaPower and AlbertaGas databases on dev and prod.
+
+I may already have it, but I'm not sure, especially about the AlbertaGas database.  
+
+basically, their accounts have been cleared from the network and I need to run things under my own account, 
+rather than theirs.  
+
+Also, on dev db, I need to admin rights as <NAME/> had these to do some OLAP stuff.  I'm guessing you are not the
+person to talk to about this?  
+
+cooper

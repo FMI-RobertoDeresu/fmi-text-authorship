@@ -1,0 +1,8 @@
+
+
+Right now it looks like we can run station 9, station 7, station 6 or station 5.  We will just have to see what we have scheduled for the day.  This
+will allow us to set our HP accordingly.  Unless I'm missing something Station 8 should not be needed.  However I will check with OPS team 
+to reverify volumes.
+
+
+<NAME/>

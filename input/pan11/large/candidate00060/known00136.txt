@@ -1,0 +1,22 @@
+
+
+Flight summary 
+ Sat 9-Feb-02 						
+						
+4678 mi (7529 km) 10hr 0mn 	London (LGW) Depart 13:00 	to 	<NAME/> (DEN) Arrive 16:00 		  Flight: 2019 	
+						
+Economy Class (Seat assignments upon check-in), Meal, Boeing 777 						
+						
+						
+						
+Total miles: 4678 mi (7529 km) Total flight time: 10hr 0mn 						
+						
+ Sat 16-Feb-02 						
+						
+4678 mi (7529 km) 9hr 10mn 	<NAME/> (DEN) Depart 17:50 	to 	London (LGW) Arrive 10:00 +1 day 		  Flight: 2018 	
+						
+Economy Class (Seat assignments upon check-in), Meal, Boeing 777 						
+						
+						
+						
+Total miles: 4678 mi (7529 km) Total flight time: 9hr 10mn

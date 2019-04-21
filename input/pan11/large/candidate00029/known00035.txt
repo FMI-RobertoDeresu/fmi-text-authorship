@@ -1,0 +1,5 @@
+
+
+We cannot locate any financial contracts for this counterparty.
+
+Please verify that this party belongs on the ITM Non-terminated financial gas list.

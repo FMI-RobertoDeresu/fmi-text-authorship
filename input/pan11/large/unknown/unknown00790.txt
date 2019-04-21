@@ -1,0 +1,6 @@
+
+
+<NAME/>:
+
+I have reviewed the three forwards and two puts.
+Please verify all economics including notional, pricing, transaction fees, share caps, no. options, trade and expiration dates, etc.

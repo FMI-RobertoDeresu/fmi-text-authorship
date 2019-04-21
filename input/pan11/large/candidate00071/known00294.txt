@@ -1,0 +1,21 @@
+
+
+We have received an executed financial Master Agreement:
+
+Type of Contract:		ISDA Master Agreement (Multicurrency-Cross Border)
+
+Effective Date:			May 30, 2001
+
+<NAME/> Entity:			<NAME/> North America Corp.
+
+Counterparty:			Petro-Hunt, L.L.C.
+
+Transactions Covered:		Approved for all products with the exception of:  Foreign Exchange
+
+Confirming Entity:		<NAME/> North America Corp.
+
+Governing Law:			Texas
+
+Special Handling Requirements:	No special handling requirements
+
+Copies will be distributed.

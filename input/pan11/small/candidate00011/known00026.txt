@@ -1,0 +1,15 @@
+
+
+<NAME/>,
+Please add the following names to the list of traders that have access to the new Ercot Imbalance and EPMI Ercotpool counterparties:
+
+<NAME/> Saibi
+Alex McElreath
+Joe Errigo
+<NAME/> Olinde
+Joe Capasso
+<NAME/> Miller
+
+We will need to add more in the near future.   Please let me know when this is completed.
+
+Thanks,

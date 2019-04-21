@@ -1,0 +1,18 @@
+
+
+<NAME/>:
+
+As the log is continually updated, we should be clear as to which entities we are reviewing for purposes of informing the book ad mins.
+To date, we have only focused on:
+
+	<NAME/>
+	<NAME/>
+	<NAME/>
+	ENA Upstream Company LLC
+`	EPMI
+
+We have consciously excluded EES and the London entities or US entities trading through EEFT in London (such as ECTRIC).
+
+Since <NAME/> Global Markets (and presumably EIM next) is under a mandate for liquidation, don't we need to liase with <NAME/> (for his US products) and London (for products such as weather) which are EGM products?  Since ENA includes FX/rate, we have included that global product in our original review.  This is needed to understand the process of liquidation of the FX/rate book (as netted against other ENA outstanding positions). 
+
+Or is our focus still only gas and power? I just don't want to miss anything or slow down the process.

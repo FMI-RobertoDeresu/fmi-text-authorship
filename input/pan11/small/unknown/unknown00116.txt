@@ -1,0 +1,5 @@
+
+
+We have a buyback under HPL (#586534).  ENA had only 7,000/day scheduled at mtr 1373 in Feb.  In reviewing the daily volumes in POPS, I didn't see any days with flow under 18,000.  So, we should not need a buyback for ENA.  Any shortages should be allocated to the HPL ticket.
+
+D

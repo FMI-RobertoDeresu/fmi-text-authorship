@@ -1,0 +1,19 @@
+
+
+These lists could change before the new company opens for business.
+
+
+Execute for all gas products, read only for power and access to stack manager:
+<NAME/> Shively
+<NAME/> Storey
+<NAME/> Ruscitti
+<NAME/> Cuilla
+<NAME/> <NAME/>
+<NAME/> <NAME/>
+<NAME/> Simpson
+
+Read only for all gas and power products:
+<NAME/> Luce
+<NAME/> Thurston
+<NAME/> Frihart
+<NAME/> Murrell

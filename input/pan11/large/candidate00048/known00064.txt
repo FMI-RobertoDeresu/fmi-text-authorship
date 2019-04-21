@@ -1,0 +1,3 @@
+
+
+You do not have to grant Nakesha access.  She already has view only access as does any <NAME/> employee.  If you show her how to set up an icon to get into the database, she should be able to get view access to the database.  All <NAME/> employees have view access.  Only employees of Legal and Credit can have edit access access.  Does that help?

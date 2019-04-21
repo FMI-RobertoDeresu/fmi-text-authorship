@@ -1,0 +1,13 @@
+
+
+An update on our change for the Storage Allocation.  Several questions
+have come up over the weekend.  The weekend crew is documenting the
+questions.  I have left <NAME/> Bodnar and <NAME/> Buchanan a phone mail message
+to research the questions and concerns on Monday.  Then we will group with
+storage and determine what changes need to be made.
+
+One change we talked about on the Sunday morning call with storage is to
+be able to use SBS on the non allocated portion of storage.  ie, if we are
+allocating injections, then withdrawals should still use SBS.  If we are allocating
+withdrawals, then injections should still have access to SBS.  <NAME/> Bodnar will
+pursue this enhancement further.  Thanks. <NAME/>

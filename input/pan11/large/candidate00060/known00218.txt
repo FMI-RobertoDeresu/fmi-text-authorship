@@ -1,0 +1,16 @@
+
+
+Financial GTC		<NAME/> Taylor		Thursday
+Financial Master	<NAME/> Taylor		Thursday
+
+Physical Gas GTC Firm	<NAME/> Cook		Thursday
+Physical Gas GTC Spot	<NAME/> Cook		Thursday
+Master Gas Firm 	<NAME/> Cook		Tuesday
+Master Gas GISB	<NAME/> Cook 		Tuesday	
+
+Netting Agreements	<NAME/> St <NAME/>		Thursday
+
+Power GTC		<NAME/> Hansen		Thursday
+EEI Master 		<NAME/> Hansen		Friday
+
+Let me know if there are any problems.

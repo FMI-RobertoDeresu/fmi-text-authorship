@@ -1,0 +1,55 @@
+
+
+The following companies have stated that they will not execute trades with <NAME/>.  Some of these decisions appear to be regional or product specific.  For example Aquila executed a trade in the Central region but will not trade with <NAME/>.
+
+East - AEP
+         <NAME/>
+         <NAME/>
+         J <NAME/>
+         <NAME/>
+         <NAME/>
+         BP Amoco
+
+Price - Dynegy
+           Bank of Montreal
+          <NAME/>
+          <NAME/>
+         J <NAME/>
+
+Options - <NAME/>
+              <NAME/>
+              BP Amoco
+              <NAME/>
+              Hess (will sell options only)
+
+Central - Mirant
+             <NAME/>
+             Vector P/L
+             <NAME/>
+             <NAME/>
+             BP Canada
+             Coral Canada
+             PG&E Trading Canada
+
+West - Burlington
+           Salt <NAME/> Project
+           Socal Gas
+           <NAME/>
+           <NAME/>
+           <NAME/>
+           <NAME/>
+           <NAME/>
+          <NAME/>
+           Entergy-Koch
+           J <NAME/> (They are clicking to close out positions only)
+           Mirant (close out positions only)
+
+Physical Trading
+
+East - The East did not notice any credit hording in the morning.  In the afternoon Tractebel is buying the physical balance of month .04 over the GD swap
+
+Central - Dynegy Canada sold most of the gas to us.  The desk bid was .05 over NGX.  Nicor Hub would not accept an $87 pre-pay for a wheeling fee.
+
+West - EOL Socal cash was trading .08 higher than ICE Socal.  The desk finished short and the market made it very difficult to buy.  EOL SJ cash traded .10 to .20 cents lower than ICE.  The only point without a credit spread was <NAME/>.  Liquidity picked up slightly from Thursday and Friday, but still slow.
+
+AEP was noticeably absent from all regions.

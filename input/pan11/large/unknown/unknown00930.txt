@@ -1,0 +1,7 @@
+
+
+Jinbaek,
+
+This is a project related to automated trading platforms for commodities.
+
+<NAME/>

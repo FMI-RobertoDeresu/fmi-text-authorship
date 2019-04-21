@@ -1,0 +1,3 @@
+
+
+Please net longs and shorts for DIA and DYN.   I will do almost all trades on-line, therefore, I would like some mechanism to make all trades net on the Holdings page.

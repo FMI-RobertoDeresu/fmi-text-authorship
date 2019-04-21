@@ -1,0 +1,27 @@
+{
+"folder": "unknown",
+"language": "EN",
+"encoding": "UTF8",
+"candidate-authors":
+[
+{"author-name": "candidate00001"},
+{"author-name": "candidate00002"},
+{"author-name": "candidate00003"},
+{"author-name": "candidate00004"},
+{"author-name": "candidate00005"},
+{"author-name": "candidate00006"},
+{"author-name": "candidate00007"},
+{"author-name": "candidate00008"}
+],
+"unknown-texts":
+[
+{"unknown-text": "unknown00001.txt"},
+{"unknown-text": "unknown00002.txt"},
+{"unknown-text": "unknown00003.txt"},
+{"unknown-text": "unknown00004.txt"},
+{"unknown-text": "unknown00005.txt"},
+{"unknown-text": "unknown00006.txt"},
+{"unknown-text": "unknown00007.txt"},
+{"unknown-text": "unknown00008.txt"}
+]
+}

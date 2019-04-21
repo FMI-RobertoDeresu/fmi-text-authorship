@@ -1,0 +1,8 @@
+
+
+<NAME/>,
+If this deal was zeroed out (and it has been after the fact), then we should also have received a credit for no longer buying from MPC (the other side of the deal, 
+deal #549160). We should only lose $40 (the net difference). Any ideas?
+
+Thanks,
+<NAME/>

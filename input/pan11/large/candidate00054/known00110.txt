@@ -1,0 +1,4 @@
+
+
+<NAME/>:
+Do you have a simulation set up that will allow me to simulate trades by pushing a buy or sell button and will move the two way so i can try simulating actual market cicumstances?

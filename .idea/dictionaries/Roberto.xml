@@ -6,11 +6,13 @@
       <w>dataset</w>
       <w>datasets</w>
       <w>dequeue</w>
+      <w>generat</w>
       <w>iters</w>
       <w>kneighbors</w>
       <w>mnist</w>
       <w>ngrams</w>
       <w>probs</w>
+      <w>vectorizer</w>
     </words>
   </dictionary>
 </component>

@@ -1,0 +1,3 @@
+
+
+Does your analysis change if the license is expanded to include both source and object code licenses with the right to the licensee grant sublicenses?
