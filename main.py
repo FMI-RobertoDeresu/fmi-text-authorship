@@ -11,15 +11,14 @@ from sklearn import multiclass
 
 cfg = {
     "run_test": 0,
-    "run_federalist": 0,
+    "run_federalist": 1,
     "run_pan_11": 0,
-    "run_pan_12": 1,
+    "run_pan_12": 0,
 
     "federalist_papers_path": os.path.join(os.path.dirname(__file__), 'input\\federalist_papers.txt'),
     "federalist_papers_authors": {"HAMILTON": 0, "MADISON": 1, "JAY": 2},
 
-    "pan_11_path": os.path.join(os.path.dirname(__file__), 'input\\pan11\\small'),
-    # "pan_11_path": os.path.join(os.path.dirname(__file__), 'input\\pan11\\large'),
+    "pan_11_path": os.path.join(os.path.dirname(__file__), 'input\\pan11'),
     "pan_12_path": os.path.join(os.path.dirname(__file__), 'input\\pan12'),
 
     "use_svm_and_rank_distance": 0,
@@ -31,9 +30,9 @@ cfg = {
     "k_neighbours_to_use": 3,
 
     "n_grams_min_length": 4,
-    "n_grams_max_length": 5,
+    "n_grams_max_length": 4,
     "n_grams_most_common": 10000,
-    "n_grams_frequency_threshold": 5,
+    "n_grams_frequency_threshold": 100,
 
     "ranking_distance_kernel": kernels.linear,
     "n_grams_kernel": kernels.linear,
@@ -44,64 +43,30 @@ cfg = {
 
 
 def run_svm(train_data, eval_data, kernel):
+    train_features, train_labels = (train_data[0], train_data[1])
+    eval_features, eval_labels = (eval_data[0], eval_data[1])
+
     # train
-    max_abs_scaler = sklearn.preprocessing.MaxAbsScaler()
-
-    train_features = max_abs_scaler.fit_transform(np.array(train_data[0]))
-    # train_kernel_features = kernel(train_features, train_features)
-    train_labels = np.array(train_data[1])
-
-    # svm = sklearn.svm.LinearSVC(max_iter=1000000, verbose=1)
-    svm = sklearn.svm.SVC(C=10, kernel=kernel, max_iter=-1, verbose=0, probability=True)
+    svm = sklearn.svm.SVC(kernel=kernel, probability=True)
     clf = multiclass.OneVsRestClassifier(svm).fit(train_features, train_labels)
 
     # eval
-    eval_features = max_abs_scaler.fit_transform(np.array(eval_data[0]))
-    # eval_kernel_features = kernel(eval_features, train_features)
-    eval_labels = np.array(eval_data[1])
-
     predict = clf.predict(eval_features)
-    # predict_probs = [None] * len(eval_labels)
     predict_probs = clf.predict_proba(eval_features)
     predict_score = clf.score(eval_features, eval_labels)
 
     return predict, predict_probs, predict_score
 
 
-def run_svm2(train_data, eval_data, kernel):
-    # train
-    max_abs_scaler = sklearn.preprocessing.MaxAbsScaler()
-    train_features, train_labels = (
-        max_abs_scaler.fit_transform(kernel(np.array(train_data[0]), np.array(train_data[0]))),
-        np.array(train_data[1])
-    )
-
-    svm = sklearn.svm.LinearSVC(max_iter=1000000, penalty='l1', dual=False)
-    svm.fit(train_features, train_labels)
-
-    # eval
-    eval_features, eval_labels = (
-        max_abs_scaler.transform(kernel(np.array(eval_data[0]), np.array(train_data[0]))),
-        np.array(eval_data[1])
-    )
-
-    predict = svm.predict(eval_features)
-    predict_probs = [None] * len(eval_labels)
-    predict_score = svm.score(eval_features, eval_labels)
-
-    return predict, predict_probs, predict_score
-
-
 def run_k_neighbors(train_data, eval_data, n_neighbors):
-    # train
-    train_features, train_labels = (np.array(train_data[0]), np.array(train_data[1]))
+    train_features, train_labels = (train_data[0], train_data[1])
+    eval_features, eval_labels = (eval_data[0], eval_data[1])
 
+    # train
     svm = sklearn.neighbors.KNeighborsClassifier(n_neighbors=n_neighbors)
     svm.fit(train_features, train_labels)
 
     # eval
-    eval_features, eval_labels = (np.array(eval_data[0]), np.array(eval_data[1]))
-
     predict = svm.predict(eval_features)
     predict_probs = svm.predict_proba(eval_features)
     predict_score = svm.score(eval_features, eval_labels)
@@ -110,22 +75,22 @@ def run_k_neighbors(train_data, eval_data, n_neighbors):
 
 
 def run(train_dataset_values, train_labels, eval_dataset_values, eval_labels, stopwords, n_grams_vocab_file=None):
+    max_abs_scaler = sklearn.preprocessing.MaxAbsScaler()
+    scores = np.zeros(4)
+
     # ranking distance
     if cfg['use_svm_and_rank_distance'] or cfg['use_kneighbors_and_rank_distance']:
-        train_data = (
-            list(map(lambda x: feature_extraction.ranking_distance(x[2], stopwords), train_dataset_values)),
-            train_labels
-        )
+        train_features = list(map(lambda x: feature_extraction.ranking_distance(x[2], stopwords), train_dataset_values))
+        train_data = (np.array(train_features), np.array(train_labels))
 
-        eval_data = (
-            list(map(lambda x: feature_extraction.ranking_distance(x[2], stopwords), eval_dataset_values)),
-            eval_labels
-        )
+        eval_features = list(map(lambda x: feature_extraction.ranking_distance(x[2], stopwords), eval_dataset_values))
+        eval_data = (np.array(eval_features), np.array(eval_labels))
 
         if cfg['use_svm_and_rank_distance'] > 0:
             print("\nSVM with rank distance:")
             for i in range(cfg['use_svm_and_rank_distance']):
                 predict, predict_probs, predict_score = run_svm(train_data, eval_data, cfg['ranking_distance_kernel'])
+                scores[0] = predict_score
                 print_results(eval_dataset_values, eval_labels, predict, predict_probs, predict_score)
 
         if cfg['use_kneighbors_and_rank_distance'] > 0:
@@ -133,6 +98,7 @@ def run(train_dataset_values, train_labels, eval_dataset_values, eval_labels, st
             for i in range(cfg['use_kneighbors_and_rank_distance']):
                 predict, predict_probs, predict_score = run_k_neighbors(train_data, eval_data,
                                                                         cfg['k_neighbours_to_use'])
+                scores[1] = predict_score
                 print_results(eval_dataset_values, eval_labels, predict, predict_probs, predict_score)
 
     # n-grams
@@ -143,22 +109,26 @@ def run(train_dataset_values, train_labels, eval_dataset_values, eval_labels, st
         ngrams_top = cfg['n_grams_most_common']
         freq_th = cfg['n_grams_frequency_threshold']
 
-        n_grams_vocabulary = feature_extraction.n_grams_vocabulary(inputs, ngrams_min, ngrams_max, ngrams_top,
-                                                                   freq_th, n_grams_vocab_file)
+        n_grams_vocabulary = feature_extraction \
+            .n_grams_vocabulary(inputs, ngrams_min, ngrams_max, ngrams_top, freq_th, n_grams_vocab_file)
+
         print("NGrams vocabulary length " + str(len(n_grams_vocabulary)))
 
         train_texts = list(map(operator.itemgetter(2), train_dataset_values))
         train_texts_ngrams = feature_extraction.n_grams(train_texts, n_grams_vocabulary, ngrams_min, ngrams_max)
-        train_data = (train_texts_ngrams, train_labels)
+        train_features = max_abs_scaler.fit_transform(np.array(train_texts_ngrams))
+        train_data = (np.array(train_features), np.array(train_labels))
 
         eval_texts = list(map(operator.itemgetter(2), eval_dataset_values))
         eval_texts_ngrams = feature_extraction.n_grams(eval_texts, n_grams_vocabulary, ngrams_min, ngrams_max)
-        eval_data = (eval_texts_ngrams, eval_labels)
+        eval_features = max_abs_scaler.fit_transform(np.array(eval_texts_ngrams))
+        eval_data = (np.array(eval_features), np.array(eval_labels))
 
         if cfg['use_svm_and_ngrams'] > 0:
             print("\nSVM with ngrams:")
             for i in range(cfg['use_svm_and_ngrams']):
                 predict, predict_probs, predict_score = run_svm(train_data, eval_data, cfg['n_grams_kernel'])
+                scores[2] = predict_score
                 print_results(eval_dataset_values, eval_labels, predict, predict_probs, predict_score)
 
         if cfg['use_kneighbors_and_ngrams'] > 0:
@@ -166,7 +136,10 @@ def run(train_dataset_values, train_labels, eval_dataset_values, eval_labels, st
             for i in range(cfg['use_kneighbors_and_ngrams']):
                 predict, predict_probs, predict_score = run_k_neighbors(train_data, eval_data,
                                                                         cfg['k_neighbours_to_use'])
+                scores[3] = predict_score
                 print_results(eval_dataset_values, eval_labels, predict, predict_probs, predict_score)
+
+    return scores
 
 
 def print_results(eval_dataset_values, eval_labels, predict, predict_probs, predict_score):
@@ -187,6 +160,18 @@ def print_results(eval_dataset_values, eval_labels, predict, predict_probs, pred
             eval_labels[index],
             predict[index],
             probs_str if cfg["print_probs"] else "no-print"))
+
+
+def print_final_scores(scores):
+    print("\nTotal scores:")
+    if cfg['use_svm_and_rank_distance'] > 0:
+        print("SVM with rank distance: " + str(scores[0]))
+    if cfg['use_kneighbors_and_rank_distance'] > 0:
+        print("KNeighbors with rank distance: " + str(scores[1]))
+    if cfg['use_svm_and_ngrams'] > 0:
+        print("SVM with ngrams: " + str(scores[2]))
+    if cfg['use_kneighbors_and_ngrams'] > 0:
+        print("KNeighbors with ngrams: " + str(scores[3]))
 
 
 def run_test():
@@ -239,6 +224,7 @@ def run_pan_11():
 def run_pan_12():
     print("\nRun pan 12")
     datasets = parsers.parse_pan_12_dataset(cfg["pan_12_path"])
+    total_scores = np.zeros(4)
 
     for dataset_name, dataset in datasets.items():
         print("\nDataset " + dataset_name)
@@ -251,41 +237,39 @@ def run_pan_12():
 
         n_grams_vocab_file = get_ngrams_vocab_file_path("pan_12_" + dataset_name)
 
-        run(train_dataset_values, train_labels, eval_dataset_values, eval_labels, function_words.nltk_english,
-            n_grams_vocab_file)
+        scores = run(train_dataset_values, train_labels, eval_dataset_values, eval_labels,
+                     function_words.nltk_english, n_grams_vocab_file)
+        total_scores = total_scores + scores
+
+    total_scores /= len(datasets)
+    print_final_scores(total_scores)
 
 
 def find_best_config(method):
     for ngrams_min in [3, 4, 5, 6]:
-        for ngrams_max in [3, 4, 5, 6]:
-            if ngrams_min > ngrams_max:
-                continue
+        for ngrams_max in range(ngrams_min, 7):
+            for freq_th in [50, 100, 200]:
+                cfg['n_grams_min_length'] = ngrams_min
+                cfg['n_grams_max_length'] = ngrams_max
+                cfg['n_grams_frequency_threshold'] = freq_th
 
-            for ngrams_top in [500, 1000, 5000, 10000, 20000, 50000, 1000000]:
-                for freq_th in [5, 10, 20, 50, 100]:
-                    cfg['n_grams_min_length'] = ngrams_min
-                    cfg['n_grams_max_length'] = ngrams_max
-                    cfg['n_grams_most_common'] = ngrams_top
-                    cfg['n_grams_frequency_threshold'] = freq_th
-
-                    print("\n\n" + str(ngrams_min) + " -- " + str(ngrams_max) + " -- " + str(ngrams_top) + " -- " +
-                          str(freq_th))
-                    method()
+                print("\n\n" + str(ngrams_min) + " -- " + str(ngrams_max) + " -- " + str(freq_th))
+                method()
 
 
 def get_ngrams_vocab_file_path(file_prefix):
     file_name = file_prefix + "_ngrams_vocab_" + \
                 str(cfg['n_grams_min_length']) + '_' + \
                 str(cfg['n_grams_max_length']) + '_' + \
-                str(cfg['n_grams_most_common']) + '_' + \
-                str(cfg['n_grams_frequency_threshold']) + ".npy"
+                str(cfg['n_grams_frequency_threshold']) + '_' + \
+                str(cfg['n_grams_most_common']) + ".npy"
 
     file_path = os.path.join(os.path.dirname(__file__), "output", "ngram_vocabs", file_name)
     return file_path
 
 
 if __name__ == "__main__":
-    find_best_config(run_federalist)
+    find_best_config(run_pan_12)
     pass
 
     if cfg["run_test"]:

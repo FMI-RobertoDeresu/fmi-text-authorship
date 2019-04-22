@@ -12,6 +12,7 @@
       <w>mnist</w>
       <w>ngrams</w>
       <w>probs</w>
+      <w>scaler</w>
       <w>vectorizer</w>
     </words>
   </dictionary>
