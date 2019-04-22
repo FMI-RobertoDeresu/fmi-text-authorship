@@ -254,7 +254,11 @@ def find_best_config(method):
                 cfg['n_grams_frequency_threshold'] = freq_th
 
                 print("\n\n" + str(ngrams_min) + " -- " + str(ngrams_max) + " -- " + str(freq_th))
-                method()
+
+                try:
+                    method()
+                except:
+                    print("ERROR!!")
 
 
 def get_ngrams_vocab_file_path(file_prefix):
