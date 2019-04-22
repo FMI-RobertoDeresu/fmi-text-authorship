@@ -27,8 +27,8 @@ def parse_federalist_papers(file_path):
         dataset = pd.read_csv(csv_file_path, index_col=0, dtype=np.str)
         return dataset
 
-    with open(file_path, encoding="utf8") as f:
-        content = f.read()
+    with open(file_path) as f:
+        file_content = f.read()
 
     dataset = pd.DataFrame(columns=['no', 'author', 'content'])
 
@@ -36,12 +36,12 @@ def parse_federalist_papers(file_path):
     regex_paper_end = '\n\n\n\n\n|\*There\sare\stwo\sslightly'
     regex_paper_author = 'HAMILTON\sAND\sMADISON|HAMILTON\sOR\sMADISON|HAMILTON|JAY|MADISON'
 
-    paper_start_matches = list(re.finditer(regex_paper_start, content, re.IGNORECASE))
+    paper_start_matches = list(re.finditer(regex_paper_start, file_content, re.IGNORECASE))
     for paper_start_match in paper_start_matches:
         # paper
         paper_start = paper_start_match.span()[0]
 
-        paper_end_match = re.search(regex_paper_end, content[paper_start:], re.IGNORECASE)
+        paper_end_match = re.search(regex_paper_end, file_content[paper_start:], re.IGNORECASE)
         paper_end = paper_start + paper_end_match.span()[0]
 
         # paper no
@@ -49,7 +49,7 @@ def parse_federalist_papers(file_path):
         paper_no_end = paper_start_match.span()[1]
 
         # author
-        paper_author_match = re.search(regex_paper_author, content[paper_start:])
+        paper_author_match = re.search(regex_paper_author, file_content[paper_start:])
         paper_author_start = paper_start + paper_author_match.span()[0]
         paper_author_end = paper_start + paper_author_match.span()[1]
 
@@ -57,9 +57,9 @@ def parse_federalist_papers(file_path):
         paper_content_start = paper_author_end
         paper_content_end = paper_end
 
-        no = content[paper_no_start:paper_no_end]
-        author = content[paper_author_start:paper_author_end]
-        content = re.sub(r"\s+", " ", content[paper_content_start:paper_content_end])
+        no = file_content[paper_no_start:paper_no_end]
+        author = file_content[paper_author_start:paper_author_end]
+        content = re.sub(r"\s+", " ", file_content[paper_content_start:paper_content_end])
 
         paper_data = {
             'no': no,

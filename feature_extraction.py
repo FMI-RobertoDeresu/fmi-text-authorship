@@ -1,3 +1,5 @@
+import os
+import numpy as np
 import nltk
 from itertools import groupby
 import operator
@@ -38,22 +40,29 @@ def ranking_distance(input, stop_words):
     return ranking
 
 
-def n_grams_vocabulary(inputs, n_min, n_max, most_common, frequency_threshold):
+def n_grams_vocabulary(inputs, n_min, n_max, most_common, frequency_threshold, file_path=None):
+    if file_path is not None and os.path.exists(file_path):
+        n_grams_vocab = list(np.load(file_path))
+        return n_grams_vocab
+
     t = time.time()
-    n_grams_keys_list = []
+    n_grams_vocab = []
     for input in inputs:
         chars = n_grams_tokenizer.tokenize(input.lower())
         for n in range(n_min, n_max + 1):
             n_grams_list = list(map(lambda x: ''.join(x), nltk.ngrams(chars, n)))
-            n_grams_keys_list = n_grams_keys_list + n_grams_list
+            n_grams_vocab = n_grams_vocab + n_grams_list
 
-    n_grams_counter = collections.Counter(n_grams_keys_list)
+    n_grams_counter = collections.Counter(n_grams_vocab)
     n_grams_most_common = n_grams_counter.most_common(most_common)
     n_grams_above_threshold = list(filter(lambda x: x[1] >= frequency_threshold, n_grams_most_common))
-    n_grams_keys_list = list(map(operator.itemgetter(0), n_grams_above_threshold))
+    n_grams_vocab = list(map(operator.itemgetter(0), n_grams_above_threshold))
     print("NGrams Vocabulary (time): " + str(time.time() - t))
 
-    return n_grams_keys_list
+    if file_path is not None:
+        np.save(file_path, np.array(n_grams_vocab))
+
+    return n_grams_vocab
 
 
 def n_grams(texts, n_grams_vocabulary, n_min, n_max):
@@ -64,8 +73,8 @@ def n_grams(texts, n_grams_vocabulary, n_min, n_max):
     n_grams_values = vectorizer.fit_transform(texts)
     n_grams_values = n_grams_values.astype(float).toarray()
 
-    # for index, text in enumerate(texts):
-    #     n_grams_values[index] = n_grams_values[index] / len(text)
+    for index, text in enumerate(texts):
+        n_grams_values[index] = n_grams_values[index] / len(text)
 
     print("Vectorizer (time): " + str(time.time() - t))
     return n_grams_values
