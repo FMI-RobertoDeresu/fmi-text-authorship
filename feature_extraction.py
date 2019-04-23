@@ -40,7 +40,7 @@ def ranking_distance(input, stop_words):
     return ranking
 
 
-def n_grams_vocabulary(inputs, n_min, n_max, most_common, frequency_threshold, file_path=None):
+def ngrams_vocabulary(inputs, ngrams_range, frequency_threshold, file_path=None):
     if file_path is not None and os.path.exists(file_path):
         n_grams_vocab = list(np.load(file_path))
         return n_grams_vocab
@@ -49,13 +49,12 @@ def n_grams_vocabulary(inputs, n_min, n_max, most_common, frequency_threshold, f
     n_grams_vocab = []
     for input in inputs:
         chars = n_grams_tokenizer.tokenize(input.lower())
-        for n in range(n_min, n_max + 1):
+        for n in range(ngrams_range[0], ngrams_range[1] + 1):
             n_grams_list = list(map(lambda x: ''.join(x), nltk.ngrams(chars, n)))
             n_grams_vocab = n_grams_vocab + n_grams_list
 
     n_grams_counter = collections.Counter(n_grams_vocab)
-    n_grams_most_common = n_grams_counter.most_common(most_common)
-    n_grams_above_threshold = list(filter(lambda x: x[1] >= frequency_threshold, n_grams_most_common))
+    n_grams_above_threshold = list(filter(lambda x: x[1] >= frequency_threshold, n_grams_counter.most_common()))
     n_grams_vocab = list(map(operator.itemgetter(0), n_grams_above_threshold))
     print("NGrams Vocabulary (time): " + str(time.time() - t))
 
@@ -65,10 +64,10 @@ def n_grams_vocabulary(inputs, n_min, n_max, most_common, frequency_threshold, f
     return n_grams_vocab
 
 
-def n_grams(texts, n_grams_vocabulary, n_min, n_max):
+def ngrams(texts, n_grams_vocabulary, ngrams_range):
     t = time.time()
 
-    vectorizer = sklearn.feature_extraction.text.CountVectorizer(analyzer='char', ngram_range=(n_min, n_max),
+    vectorizer = sklearn.feature_extraction.text.CountVectorizer(analyzer='char', ngram_range=ngrams_range,
                                                                  lowercase=False, vocabulary=n_grams_vocabulary)
     n_grams_values = vectorizer.fit_transform(texts)
     n_grams_values = n_grams_values.astype(float).toarray()

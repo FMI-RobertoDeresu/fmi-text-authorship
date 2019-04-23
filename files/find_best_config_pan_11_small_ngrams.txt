@@ -1,0 +1,443 @@
+3 -- 3 -- 50
+
+Run pan 11
+
+Dataset small
+NGrams Vocabulary (time): 30.120723009109497
+NGrams vocabulary length 2720
+Vectorizer (time): 0.6620380878448486
+Vectorizer (time): 0.0870048999786377
+
+SVM with ngrams:
+Eval:
+Score: 0.5050505050505051
+
+Total scores:
+SVM with ngrams: 0.25252525252525254
+
+
+3 -- 3 -- 100
+
+Run pan 11
+
+Dataset small
+NGrams Vocabulary (time): 31.063776969909668
+NGrams vocabulary length 1860
+Vectorizer (time): 0.6370365619659424
+Vectorizer (time): 0.08300495147705078
+
+SVM with ngrams:
+Eval:
+Score: 0.501010101010101
+
+Total scores:
+SVM with ngrams: 0.2505050505050505
+
+
+3 -- 3 -- 200
+
+Run pan 11
+
+Dataset small
+NGrams Vocabulary (time): 30.3737370967865
+NGrams vocabulary length 1067
+Vectorizer (time): 0.6210355758666992
+Vectorizer (time): 0.08100461959838867
+
+SVM with ngrams:
+Eval:
+Score: 0.498989898989899
+
+Total scores:
+SVM with ngrams: 0.2494949494949495
+
+
+3 -- 3 -- 500
+
+Run pan 11
+
+Dataset small
+NGrams Vocabulary (time): 30.632751941680908
+NGrams vocabulary length 393
+Vectorizer (time): 0.5910336971282959
+Vectorizer (time): 0.07700443267822266
+
+SVM with ngrams:
+Eval:
+Score: 0.44242424242424244
+
+Total scores:
+SVM with ngrams: 0.22121212121212122
+
+
+3 -- 4 -- 50
+
+Run pan 11
+
+Dataset small
+NGrams Vocabulary (time): 129.34039783477783
+NGrams vocabulary length 6276
+Vectorizer (time): 1.315075397491455
+Vectorizer (time): 0.18201041221618652
+
+SVM with ngrams:
+Eval:
+Score: 0.5434343434343434
+
+Total scores:
+SVM with ngrams: 0.2717171717171717
+
+
+3 -- 4 -- 100
+
+Run pan 11
+
+Dataset small
+NGrams Vocabulary (time): 124.00109219551086
+NGrams vocabulary length 3551
+Vectorizer (time): 1.2460713386535645
+Vectorizer (time): 0.16000890731811523
+
+SVM with ngrams:
+Eval:
+Score: 0.5252525252525253
+
+Total scores:
+SVM with ngrams: 0.26262626262626265
+
+
+3 -- 4 -- 200
+
+Run pan 11
+
+Dataset small
+NGrams Vocabulary (time): 123.5050642490387
+NGrams vocabulary length 1697
+Vectorizer (time): 1.189068078994751
+Vectorizer (time): 0.15300869941711426
+
+SVM with ngrams:
+Eval:
+Score: 0.4909090909090909
+
+Total scores:
+SVM with ngrams: 0.24545454545454545
+
+
+3 -- 4 -- 500
+
+Run pan 11
+
+Dataset small
+NGrams Vocabulary (time): 124.39311504364014
+NGrams vocabulary length 520
+Vectorizer (time): 1.1450653076171875
+Vectorizer (time): 0.1480083465576172
+
+SVM with ngrams:
+Eval:
+Score: 0.4626262626262626
+
+Total scores:
+SVM with ngrams: 0.2313131313131313
+
+
+3 -- 5 -- 50
+
+Run pan 11
+
+Dataset small
+NGrams Vocabulary (time): 282.9151818752289
+NGrams vocabulary length 8864
+Vectorizer (time): 1.9321105480194092
+Vectorizer (time): 0.2540147304534912
+
+SVM with ngrams:
+Eval:
+Score: 0.5333333333333333
+
+Total scores:
+SVM with ngrams: 0.26666666666666666
+
+
+3 -- 5 -- 100
+
+Run pan 11
+
+Dataset small
+NGrams Vocabulary (time): 280.715056180954
+NGrams vocabulary length 4577
+Vectorizer (time): 1.8261044025421143
+Vectorizer (time): 0.23801374435424805
+
+SVM with ngrams:
+Eval:
+Score: 0.5232323232323233
+
+Total scores:
+SVM with ngrams: 0.26161616161616164
+
+
+3 -- 5 -- 200
+
+Run pan 11
+
+Dataset small
+NGrams Vocabulary (time): 281.5681049823761
+NGrams vocabulary length 1987
+Vectorizer (time): 1.7491002082824707
+Vectorizer (time): 0.22701287269592285
+
+SVM with ngrams:
+Eval:
+Score: 0.494949494949495
+
+Total scores:
+SVM with ngrams: 0.2474747474747475
+
+
+3 -- 5 -- 500
+
+Run pan 11
+
+Dataset small
+NGrams Vocabulary (time): 282.6631672382355
+NGrams vocabulary length 553
+Vectorizer (time): 1.683096170425415
+Vectorizer (time): 0.22001266479492188
+
+SVM with ngrams:
+Eval:
+Score: 0.4585858585858586
+
+Total scores:
+SVM with ngrams: 0.2292929292929293
+
+
+4 -- 4 -- 50
+
+Run pan 11
+
+Dataset small
+NGrams Vocabulary (time): 30.672754526138306
+NGrams vocabulary length 3556
+Vectorizer (time): 0.6560375690460205
+Vectorizer (time): 0.09000492095947266
+
+SVM with ngrams:
+Eval:
+Score: 0.4909090909090909
+
+Total scores:
+SVM with ngrams: 0.24545454545454545
+
+
+4 -- 4 -- 100
+
+Run pan 11
+
+Dataset small
+NGrams vocabulary length 1691
+Vectorizer (time): 0.6350359916687012
+Vectorizer (time): 0.08500480651855469
+
+SVM with ngrams:
+Eval:
+Score: 0.4868686868686869
+
+Total scores:
+SVM with ngrams: 0.24343434343434345
+
+
+4 -- 4 -- 200
+
+Run pan 11
+
+Dataset small
+NGrams Vocabulary (time): 30.372737407684326
+NGrams vocabulary length 630
+Vectorizer (time): 0.595034122467041
+Vectorizer (time): 0.07800412178039551
+
+SVM with ngrams:
+Eval:
+Score: 0.43232323232323233
+
+Total scores:
+SVM with ngrams: 0.21616161616161617
+
+
+4 -- 4 -- 500
+
+Run pan 11
+
+Dataset small
+NGrams Vocabulary (time): 30.577748775482178
+NGrams vocabulary length 127
+Vectorizer (time): 0.5720329284667969
+Vectorizer (time): 0.07500410079956055
+
+SVM with ngrams:
+Eval:
+Score: 0.3191919191919192
+
+Total scores:
+SVM with ngrams: 0.1595959595959596
+
+
+4 -- 5 -- 50
+
+Run pan 11
+
+Dataset small
+NGrams Vocabulary (time): 124.68113112449646
+NGrams vocabulary length 6144
+Vectorizer (time): 1.2640724182128906
+Vectorizer (time): 0.1630091667175293
+
+SVM with ngrams:
+Eval:
+Score: 0.49292929292929294
+
+Total scores:
+SVM with ngrams: 0.24646464646464647
+
+
+4 -- 5 -- 100
+
+Run pan 11
+
+Dataset small
+NGrams Vocabulary (time): 124.308109998703
+NGrams vocabulary length 2717
+Vectorizer (time): 1.190068006515503
+Vectorizer (time): 0.15600895881652832
+
+SVM with ngrams:
+Eval:
+Score: 0.4686868686868687
+
+Total scores:
+SVM with ngrams: 0.23434343434343435
+
+
+4 -- 5 -- 200
+
+Run pan 11
+
+Dataset small
+NGrams Vocabulary (time): 120.86691331863403
+NGrams vocabulary length 920
+Vectorizer (time): 1.1000630855560303
+Vectorizer (time): 0.14400815963745117
+
+SVM with ngrams:
+Eval:
+Score: 0.4505050505050505
+
+Total scores:
+SVM with ngrams: 0.22525252525252526
+
+
+4 -- 5 -- 500
+
+Run pan 11
+
+Dataset small
+NGrams Vocabulary (time): 120.49289155006409
+NGrams vocabulary length 160
+Vectorizer (time): 1.1000630855560303
+Vectorizer (time): 0.1410081386566162
+
+SVM with ngrams:
+Eval:
+Score: 0.32525252525252524
+
+Total scores:
+SVM with ngrams: 0.16262626262626262
+
+
+5 -- 5 -- 50
+
+Run pan 11
+
+Dataset small
+NGrams Vocabulary (time): 29.600692987442017
+NGrams vocabulary length 2588
+Vectorizer (time): 0.6440365314483643
+Vectorizer (time): 0.08200454711914062
+
+SVM with ngrams:
+Eval:
+Score: 0.44242424242424244
+
+Total scores:
+SVM with ngrams: 0.22121212121212122
+
+
+5 -- 5 -- 100
+
+Run pan 11
+
+Dataset small
+NGrams Vocabulary (time): 29.533689498901367
+NGrams vocabulary length 1026
+Vectorizer (time): 0.5800333023071289
+Vectorizer (time): 0.07700443267822266
+
+SVM with ngrams:
+Eval:
+Score: 0.4
+
+Total scores:
+SVM with ngrams: 0.2
+
+
+5 -- 5 -- 200
+
+Run pan 11
+
+Dataset small
+NGrams Vocabulary (time): 29.587692260742188
+NGrams vocabulary length 290
+Vectorizer (time): 0.5630321502685547
+Vectorizer (time): 0.07500410079956055
+
+SVM with ngrams:
+Eval:
+Score: 0.2868686868686869
+
+Total scores:
+SVM with ngrams: 0.14343434343434344
+
+
+5 -- 5 -- 500
+
+Run pan 11
+
+Dataset small
+NGrams Vocabulary (time): 29.41268253326416
+NGrams vocabulary length 33
+Vectorizer (time): 0.5590319633483887
+Vectorizer (time): 0.07300424575805664
+
+SVM with ngrams:
+Eval:
+Score: 0.16161616161616163
+
+Total scores:
+SVM with ngrams: 0.08080808080808081
+
+Run pan 11
+
+Dataset small
+NGrams vocabulary length 33
+Vectorizer (time): 0.5650322437286377
+Vectorizer (time): 0.0740041732788086
+
+SVM with ngrams:
+Eval:
+Score: 0.16161616161616163
+
+Total scores:
+SVM with ngrams: 0.08080808080808081

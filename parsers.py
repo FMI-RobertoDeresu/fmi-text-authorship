@@ -73,18 +73,7 @@ def parse_federalist_papers(file_path):
     return dataset
 
 
-def parse_pan_11_dataset(path):
-    csv_file_path = os.path.join(os.path.dirname(path), os.path.basename(path) + ".csv")
-    if os.path.exists(csv_file_path):
-        dataset = pd.read_csv(csv_file_path, index_col=0, dtype=np.str)
-        return dataset
-
-    dataset = parse_pan_dataset(path)
-    dataset.to_csv(csv_file_path)
-    return dataset
-
-
-def parse_pan_12_dataset(path):
+def parse_pan_datasets(path):
     datasets = {}
     dirs = [os.path.join(path, x) for x in os.listdir(path) if os.path.isdir(os.path.join(path, x))]
     for dir_path in dirs:

@@ -11,8 +11,8 @@ from sklearn import multiclass
 
 cfg = {
     "run_test": 0,
-    "run_federalist": 1,
-    "run_pan_11": 0,
+    "run_federalist": 0,
+    "run_pan_11": 1,
     "run_pan_12": 0,
 
     "federalist_papers_path": os.path.join(os.path.dirname(__file__), 'input\\federalist_papers.txt'),
@@ -29,13 +29,12 @@ cfg = {
 
     "k_neighbours_to_use": 3,
 
-    "n_grams_min_length": 4,
-    "n_grams_max_length": 4,
-    "n_grams_most_common": 10000,
-    "n_grams_frequency_threshold": 100,
+    # "ngrams_range": (3, 4), #pan
+    "ngrams_range": (4, 4),  # federalist
+    "ngrams_frequency_threshold": 100,
 
     "ranking_distance_kernel": kernels.linear,
-    "n_grams_kernel": kernels.linear,
+    "ngrams_kernel": kernels.linear,
 
     "print_probs": True
     # "print_probs": False
@@ -74,7 +73,7 @@ def run_k_neighbors(train_data, eval_data, n_neighbors):
     return predict, predict_probs, predict_score
 
 
-def run(train_dataset_values, train_labels, eval_dataset_values, eval_labels, stopwords, n_grams_vocab_file=None):
+def run(train_dataset_values, train_labels, eval_dataset_values, eval_labels, stopwords, ngrams_vocab_file=None):
     max_abs_scaler = sklearn.preprocessing.MaxAbsScaler()
     scores = np.zeros(4)
 
@@ -104,30 +103,26 @@ def run(train_dataset_values, train_labels, eval_dataset_values, eval_labels, st
     # n-grams
     if cfg['use_svm_and_ngrams'] or cfg['use_kneighbors_and_ngrams']:
         inputs = list(map(lambda x: x[2], train_dataset_values))
-        ngrams_min = cfg['n_grams_min_length']
-        ngrams_max = cfg['n_grams_max_length']
-        ngrams_top = cfg['n_grams_most_common']
-        freq_th = cfg['n_grams_frequency_threshold']
+        ngrams_range = cfg['ngrams_range']
+        freq_th = cfg['ngrams_frequency_threshold']
 
-        n_grams_vocabulary = feature_extraction \
-            .n_grams_vocabulary(inputs, ngrams_min, ngrams_max, ngrams_top, freq_th, n_grams_vocab_file)
-
-        print("NGrams vocabulary length " + str(len(n_grams_vocabulary)))
+        ngrams_vocabulary = feature_extraction.ngrams_vocabulary(inputs, ngrams_range, freq_th, ngrams_vocab_file)
+        print("NGrams vocabulary length " + str(len(ngrams_vocabulary)))
 
         train_texts = list(map(operator.itemgetter(2), train_dataset_values))
-        train_texts_ngrams = feature_extraction.n_grams(train_texts, n_grams_vocabulary, ngrams_min, ngrams_max)
+        train_texts_ngrams = feature_extraction.ngrams(train_texts, ngrams_vocabulary, ngrams_range)
         train_features = max_abs_scaler.fit_transform(np.array(train_texts_ngrams))
         train_data = (np.array(train_features), np.array(train_labels))
 
         eval_texts = list(map(operator.itemgetter(2), eval_dataset_values))
-        eval_texts_ngrams = feature_extraction.n_grams(eval_texts, n_grams_vocabulary, ngrams_min, ngrams_max)
+        eval_texts_ngrams = feature_extraction.ngrams(eval_texts, ngrams_vocabulary, ngrams_range)
         eval_features = max_abs_scaler.fit_transform(np.array(eval_texts_ngrams))
         eval_data = (np.array(eval_features), np.array(eval_labels))
 
         if cfg['use_svm_and_ngrams'] > 0:
             print("\nSVM with ngrams:")
             for i in range(cfg['use_svm_and_ngrams']):
-                predict, predict_probs, predict_score = run_svm(train_data, eval_data, cfg['n_grams_kernel'])
+                predict, predict_probs, predict_score = run_svm(train_data, eval_data, cfg['ngrams_kernel'])
                 scores[2] = predict_score
                 print_results(eval_dataset_values, eval_labels, predict, predict_probs, predict_score)
 
@@ -145,6 +140,7 @@ def run(train_dataset_values, train_labels, eval_dataset_values, eval_labels, st
 def print_results(eval_dataset_values, eval_labels, predict, predict_probs, predict_score):
     print("Eval:")
     print("Score: {}".format(predict_score))
+    return
 
     indexes = list(enumerate(eval_labels))
     indexes.sort(key=operator.itemgetter(1, 0))
@@ -198,32 +194,39 @@ def run_federalist():
     eval_dataset_values = list(filter(lambda x: x[1] == "HAMILTON OR MADISON", dataset.values))
     eval_labels = [1] * 11
 
-    n_grams_vocab_file = get_ngrams_vocab_file_path("federalist_papers")
+    ngrams_vocab_file = get_ngrams_vocab_file_path("federalist_papers")
 
     run(train_dataset_values, train_labels, eval_dataset_values, eval_labels, function_words.mosteller_and_wallace,
-        n_grams_vocab_file)
+        ngrams_vocab_file)
 
 
 def run_pan_11():
-    dataset_name = "small" if cfg["pan_11_path"].endswith('small') else "large"
-    print("\nRun pan 11 " + dataset_name)
-    dataset = parsers.parse_pan_11_dataset(cfg["pan_11_path"])
+    print("\nRun pan 11")
+    datasets = parsers.parse_pan_datasets(cfg["pan_11_path"])
+    total_scores = np.zeros(4)
 
-    train_dataset_values = list(filter(lambda x: not (x[1].startswith('unknown')), dataset.values))
-    train_labels = list(map(lambda x: int(re.search("\d+", x[1]).group()), train_dataset_values))
+    for dataset_name, dataset in list(datasets.items())[1:]:
+        print("\nDataset " + dataset_name)
 
-    eval_dataset_values = list(filter(lambda x: x[1].startswith('unknown'), dataset.values))
-    eval_labels = list(map(lambda x: int(re.search("\d+", x[3]).group()), eval_dataset_values))
+        train_dataset_values = list(filter(lambda x: not (x[1].startswith('unknown')), dataset.values))
+        train_labels = list(map(lambda x: int(re.search("\d+", x[1]).group()), train_dataset_values))
 
-    n_grams_vocab_file = get_ngrams_vocab_file_path("pan_11_" + dataset_name)
+        eval_dataset_values = list(filter(lambda x: x[1].startswith('unknown'), dataset.values))
+        eval_labels = list(map(lambda x: int(re.search("\d+", x[3]).group()), eval_dataset_values))
 
-    run(train_dataset_values, train_labels, eval_dataset_values, eval_labels, function_words.nltk_english,
-        n_grams_vocab_file)
+        ngrams_vocab_file = get_ngrams_vocab_file_path("pan_11_" + dataset_name)
+
+        scores = run(train_dataset_values, train_labels, eval_dataset_values, eval_labels, function_words.nltk_english,
+                     ngrams_vocab_file)
+        total_scores = total_scores + scores
+
+    total_scores /= len(datasets)
+    print_final_scores(total_scores)
 
 
 def run_pan_12():
     print("\nRun pan 12")
-    datasets = parsers.parse_pan_12_dataset(cfg["pan_12_path"])
+    datasets = parsers.parse_pan_datasets(cfg["pan_12_path"])
     total_scores = np.zeros(4)
 
     for dataset_name, dataset in datasets.items():
@@ -235,10 +238,10 @@ def run_pan_12():
         eval_dataset_values = list(filter(lambda x: x[1].startswith('unknown'), dataset.values))
         eval_labels = list(map(lambda x: int(re.search("\d+", x[3]).group()), eval_dataset_values))
 
-        n_grams_vocab_file = get_ngrams_vocab_file_path("pan_12_" + dataset_name)
+        ngrams_vocab_file = get_ngrams_vocab_file_path("pan_12_" + dataset_name)
 
-        scores = run(train_dataset_values, train_labels, eval_dataset_values, eval_labels,
-                     function_words.nltk_english, n_grams_vocab_file)
+        scores = run(train_dataset_values, train_labels, eval_dataset_values, eval_labels, function_words.nltk_english,
+                     ngrams_vocab_file)
         total_scores = total_scores + scores
 
     total_scores /= len(datasets)
@@ -246,12 +249,11 @@ def run_pan_12():
 
 
 def find_best_config(method):
-    for ngrams_min in [3, 4, 5, 6]:
-        for ngrams_max in range(ngrams_min, 7):
-            for freq_th in [50, 100, 200]:
-                cfg['n_grams_min_length'] = ngrams_min
-                cfg['n_grams_max_length'] = ngrams_max
-                cfg['n_grams_frequency_threshold'] = freq_th
+    for ngrams_min in [3, 4, 5]:
+        for ngrams_max in range(ngrams_min, 6):
+            for freq_th in [50, 100, 200, 500]:
+                cfg['ngrams_range'] = (ngrams_min, ngrams_max)
+                cfg['ngrams_frequency_threshold'] = freq_th
 
                 print("\n\n" + str(ngrams_min) + " -- " + str(ngrams_max) + " -- " + str(freq_th))
 
@@ -263,17 +265,16 @@ def find_best_config(method):
 
 def get_ngrams_vocab_file_path(file_prefix):
     file_name = file_prefix + "_ngrams_vocab_" + \
-                str(cfg['n_grams_min_length']) + '_' + \
-                str(cfg['n_grams_max_length']) + '_' + \
-                str(cfg['n_grams_frequency_threshold']) + '_' + \
-                str(cfg['n_grams_most_common']) + ".npy"
+                str(cfg['ngrams_range'][0]) + '_' + \
+                str(cfg['ngrams_range'][1]) + '_' + \
+                str(cfg['ngrams_frequency_threshold']) + ".npy"
 
     file_path = os.path.join(os.path.dirname(__file__), "output", "ngram_vocabs", file_name)
     return file_path
 
 
 if __name__ == "__main__":
-    find_best_config(run_pan_12)
+    find_best_config(run_pan_11)
     pass
 
     if cfg["run_test"]:
