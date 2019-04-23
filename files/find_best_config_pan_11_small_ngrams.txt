@@ -441,3 +441,233 @@ Score: 0.16161616161616163
 
 Total scores:
 SVM with ngrams: 0.08080808080808081
+
+
+3 -- 3 -- 5
+
+Run pan 11
+
+Dataset small
+NGrams Vocabulary (time): 35.338019132614136
+NGrams vocabulary length 6325
+Vectorizer (time): 0.8750298023223877
+Vectorizer (time): 0.10935497283935547
+
+SVM with ngrams:
+Eval:
+Score: 0.5252525252525253
+
+Total scores:
+SVM with ngrams: 0.26262626262626265
+
+
+3 -- 3 -- 10
+
+Run pan 11
+
+Dataset small
+NGrams Vocabulary (time): 32.63719201087952
+NGrams vocabulary length 5124
+Vectorizer (time): 0.8451545238494873
+Vectorizer (time): 0.12507081031799316
+
+SVM with ngrams:
+Eval:
+Score: 0.5191919191919192
+
+Total scores:
+SVM with ngrams: 0.2595959595959596
+
+
+3 -- 4 -- 5
+
+Run pan 11
+
+Dataset small
+NGrams Vocabulary (time): 150.2683277130127
+NGrams vocabulary length 27956
+Vectorizer (time): 2.100041627883911
+Vectorizer (time): 0.28902578353881836
+
+SVM with ngrams:
+Eval:
+Score: 0.5454545454545454
+
+Total scores:
+SVM with ngrams: 0.2727272727272727
+
+
+3 -- 4 -- 10
+
+Run pan 11
+
+Dataset small
+NGrams Vocabulary (time): 134.8352279663086
+NGrams vocabulary length 18714
+Vectorizer (time): 1.9076879024505615
+Vectorizer (time): 0.3019683361053467
+
+SVM with ngrams:
+Eval:
+Score: 0.5393939393939394
+
+Total scores:
+SVM with ngrams: 0.2696969696969697
+
+
+3 -- 5 -- 5
+
+Run pan 11
+
+Dataset small
+NGrams Vocabulary (time): 293.8398208618164
+NGrams vocabulary length 58959
+Vectorizer (time): 3.6181883811950684
+Vectorizer (time): 0.6140358448028564
+
+SVM with ngrams:
+Eval:
+Score: 0.5454545454545454
+
+Total scores:
+SVM with ngrams: 0.2727272727272727
+
+
+3 -- 5 -- 10
+
+Run pan 11
+
+Dataset small
+NGrams Vocabulary (time): 303.77043199539185
+NGrams vocabulary length 34092
+Vectorizer (time): 2.9600303173065186
+Vectorizer (time): 0.7040152549743652
+
+SVM with ngrams:
+Eval:
+Score: 0.5232323232323233
+
+Total scores:
+SVM with ngrams: 0.26161616161616164
+
+
+4 -- 4 -- 5
+
+Run pan 11
+
+Dataset small
+NGrams Vocabulary (time): 30.58309006690979
+NGrams vocabulary length 21631
+Vectorizer (time): 1.2224140167236328
+Vectorizer (time): 0.16800832748413086
+
+SVM with ngrams:
+ Eval:
+Score: 0.5313131313131313
+
+Total scores:
+SVM with ngrams: 0.26565656565656565
+
+
+4 -- 4 -- 10
+
+Run pan 11
+
+Dataset small
+NGrams Vocabulary (time): 37.17153596878052
+NGrams vocabulary length 13590
+Vectorizer (time): 1.207582712173462
+Vectorizer (time): 0.18805289268493652
+
+SVM with ngrams:
+Eval:
+Score: 0.5151515151515151
+
+Total scores:
+SVM with ngrams: 0.25757575757575757
+
+
+4 -- 5 -- 5
+
+Run pan 11
+
+Dataset small
+NGrams Vocabulary (time): 133.63100147247314
+NGrams vocabulary length 52634
+Vectorizer (time): 2.7360141277313232
+Vectorizer (time): 0.3849656581878662
+
+SVM with ngrams:
+Eval:
+Score: 0.5292929292929293
+
+Total scores:
+SVM with ngrams: 0.26464646464646463
+
+
+4 -- 5 -- 10
+
+Run pan 11
+
+Dataset small
+NGrams Vocabulary (time): 148.38873314857483
+NGrams vocabulary length 28968
+Vectorizer (time): 2.0939834117889404
+Vectorizer (time): 0.3015584945678711
+
+SVM with ngrams:
+Eval:
+Score: 0.509090909090909
+
+Total scores:
+SVM with ngrams: 0.2545454545454545
+
+
+5 -- 5 -- 5
+
+Run pan 11
+
+Dataset small
+NGrams Vocabulary (time): 33.12869048118591
+NGrams vocabulary length 31003
+Vectorizer (time): 1.4618947505950928
+Vectorizer (time): 0.21018719673156738
+
+SVM with ngrams:
+Eval:
+Score: 0.4868686868686869
+
+Total scores:
+SVM with ngrams: 0.24343434343434345
+
+
+5 -- 5 -- 10
+
+Run pan 11
+
+Dataset small
+NGrams Vocabulary (time): 32.54673624038696
+NGrams vocabulary length 15378
+Vectorizer (time): 1.0653679370880127
+Vectorizer (time): 0.16699814796447754
+
+SVM with ngrams:
+Eval:
+Score: 0.47878787878787876
+
+Total scores:
+SVM with ngrams: 0.23939393939393938
+
+Run pan 11
+
+Dataset small
+NGrams vocabulary length 15378
+Vectorizer (time): 1.1428096294403076
+Vectorizer (time): 0.14601969718933105
+
+SVM with ngrams:
+Eval:
+Score: 0.47878787878787876
+
+Total scores:
+SVM with ngrams: 0.23939393939393938
