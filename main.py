@@ -33,7 +33,7 @@ cfg = {
 
     # "print_each_test": True,
     "print_each_test": False,
-    
+
     # "print_probs": True,
     "print_probs": False,
 
