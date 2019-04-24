@@ -7,6 +7,9 @@ import feature_extraction
 import kernels
 import parsers
 import function_words
+import collections
+import itertools
+import matplotlib.pyplot as plt
 from sklearn import multiclass
 
 kernels_list = [
@@ -17,7 +20,7 @@ kernels_list = [
 
 cfg = {
     "run_test": 0,
-    "run_federalist": 1,
+    "run_federalist": 0,
     "run_pan_11": 0,
     "run_pan_12": 0,
     "run_all": 1,
@@ -237,7 +240,7 @@ def run_pan_12():
     datasets = parsers.parse_pan_datasets(cfg["pan_12_path"])
     total_scores = np.zeros(2)
 
-    for dataset_name, dataset in datasets.items():
+    for dataset_name, dataset in list(datasets.items()):
         print("\nDataset " + dataset_name)
 
         train_dataset_values = list(filter(lambda x: not (x[1].startswith('unknown')), dataset.values))
@@ -271,6 +274,24 @@ def run_pan_12():
     return total_scores
 
 
+def get_ranking_distance_file_path(file_prefix, function_words_name):
+    file_name = file_prefix + "_ranking_distance_" + \
+                str(function_words_name) + ".npy"
+
+    file_path = os.path.join(os.path.dirname(__file__), "output", "ranking_distances", file_name)
+    return file_path
+
+
+def get_ngrams_vocab_file_path(file_prefix, ngrams_range, ngrams_freq_th):
+    file_name = file_prefix + "_ngrams_vocab_" + \
+                str(ngrams_range[0]) + '_' + \
+                str(ngrams_range[1]) + '_' + \
+                str(ngrams_freq_th) + ".npy"
+
+    file_path = os.path.join(os.path.dirname(__file__), "output", "ngram_vocabs", file_name)
+    return file_path
+
+
 def print_results(eval_dataset_values, eval_labels, predict, predict_probs, predict_score):
     print("Score: {}".format(predict_score))
 
@@ -302,22 +323,67 @@ def print_final_scores(scores, kernel_name):
         print("SVM with ngrams: " + str(scores[1]))
 
 
-def get_ranking_distance_file_path(file_prefix, function_words_name):
-    file_name = file_prefix + "_ranking_distance_" + \
-                str(function_words_name) + ".npy"
+def plot_result(data):
+    data.sort(key=operator.itemgetter(0))
+    datasets = unique(map(operator.itemgetter(1), data))
+    kernels = unique(map(operator.itemgetter(2), data))
+    methods = ["ranking", "ngrams"]
+    colors = ["SkyBlue", "IndianRed", "red", "magenta", "blue", "cyan", "green", "yellow", "black", "white"]
 
-    file_path = os.path.join(os.path.dirname(__file__), "output", "ranking_distances", file_name)
-    return file_path
+    x_labels = []
+    for dataset in datasets:
+        for method in methods:
+            x_labels.append("{} with {}".format(dataset, method))
+
+    fig, ax = plt.subplots()
+    width = 0.3
+    ind = np.arange(len(datasets) * len(methods)) * len(kernels) * width * 2
+
+    bars = []
+    for kernel_index, kernel in enumerate(kernels):
+        x_data = ind - (1 - kernel_index) * width + (width / 2)
+        height = list(map(lambda x: (round(x[3][0], 2), round(x[3][1], 2)), filter(lambda x: x[2] == kernel, data)))
+        height = [x for tuple in height for x in tuple]
+
+        bars = bars + list(ax.bar(x_data, height, width, color=colors[kernel_index], label=kernel))
+
+    fig.set_size_inches(9, 6)
+    ax.set_title('Text authorship detection scores')
+    ax.set_ylabel('Score')
+    ax.set_ylim(top=1.5)
+    ax.set_xticks(ind)
+    ax.set_xticklabels(x_labels)
+    ax.legend(loc=1)
+    autolabel(ax, bars)
+
+    plt.savefig("output/result.png")
+    plt.show()
+
+# method from https://matplotlib.org
+def autolabel(ax, rects, xpos='center'):
+    """
+       Attach a text label above each bar in *rects*, displaying its height.
+
+       *xpos* indicates which side to place the text w.r.t. the center of
+       the bar. It can be one of the following {'center', 'right', 'left'}.
+       """
+
+    xpos = xpos.lower()  # normalize the case of the parameter
+    ha = {'center': 'center', 'right': 'left', 'left': 'right'}
+    offset = {'center': 0.5, 'right': 0.57, 'left': 0.43}  # x_txt = x + w*off
+
+    for rect in rects:
+        height = rect.get_height()
+        ax.text(rect.get_x() + rect.get_width() * offset[xpos], 1.01 * height,
+                '{}'.format(height), ha=ha[xpos], va='bottom')
 
 
-def get_ngrams_vocab_file_path(file_prefix, ngrams_range, ngrams_freq_th):
-    file_name = file_prefix + "_ngrams_vocab_" + \
-                str(ngrams_range[0]) + '_' + \
-                str(ngrams_range[1]) + '_' + \
-                str(ngrams_freq_th) + ".npy"
-
-    file_path = os.path.join(os.path.dirname(__file__), "output", "ngram_vocabs", file_name)
-    return file_path
+def unique(list_to_filter):
+    unique_list = []
+    for x in list_to_filter:
+        if x not in unique_list:
+            unique_list.append(x)
+    return unique_list
 
 
 def find_best_ngrams_config(method):
@@ -335,19 +401,29 @@ def find_best_ngrams_config(method):
                     print("ERROR!!")
 
 
-if __name__ == "__main__":
+def main():
     # find_best_ngrams_config(run_federalist)
-
     if cfg["run_all"]:
+        plot_data = []
         cfg["use_svm_and_ranking_distance"] = 1
         cfg["use_svm_and_ngrams"] = 1
 
         for kernel in kernels_list:
             cfg["string_kernel"] = kernel
-            # run_test()
-            run_federalist()
-            # run_pan_11()
-            run_pan_12()
+
+            # score = run_test()
+            # plot_data.append((1, "Test", kernel[0], score))
+
+            score = run_federalist()
+            plot_data.append((2, "Federalist", kernel[0], score))
+
+            # score = run_pan_11()
+            # plot_data.append((4, "PAN 11", kernel[0], score))
+
+            score = run_pan_12()
+            plot_data.append((4, "PAN 12", kernel[0], score))
+
+        plot_result(plot_data)
     else:
         if cfg["run_test"]:
             run_test()
@@ -360,3 +436,7 @@ if __name__ == "__main__":
 
         if cfg["run_pan_12"]:
             run_pan_12()
+
+
+if __name__ == "__main__":
+    main()

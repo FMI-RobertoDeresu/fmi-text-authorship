@@ -1,7 +1,7 @@
 import os
 import numpy as np
 import nltk
-from itertools import groupby
+import itertools
 import operator
 import collections
 import sklearn
@@ -30,7 +30,9 @@ def ranking_distance(texts, stop_words, ranking_distance_file):
         # 'if k objects will claim the same rank and the first x ranks are already used by other objects,
         # then they will share the ranks x + 1, x + 2, . . . , x + k and all of them will receive as rank
         # the number: (x+1)+(x+2)+...+(x+k) / k = x + (k+1) / 2'
-        groups = list(map(lambda x: (x[0], list(x[1])), groupby(function_words_freq, key=operator.itemgetter(1))))
+        groups = list(map(lambda x: (x[0], list(x[1])),
+                          itertools.groupby(function_words_freq, key=operator.itemgetter(1))))
+
         ranking = []
         rank = 0
         for key, values in groups:
