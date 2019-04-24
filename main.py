@@ -7,8 +7,6 @@ import feature_extraction
 import kernels
 import parsers
 import function_words
-import collections
-import itertools
 import matplotlib.pyplot as plt
 from sklearn import multiclass
 
@@ -35,8 +33,12 @@ cfg = {
 
     # "print_each_test": True,
     "print_each_test": False,
+    
     # "print_probs": True,
     "print_probs": False,
+
+    # "save_results_plot": True,
+    "save_results_plot": False,
 
     # === TEST ===
     "test_function_words": ("romanian", function_words.romanian),
@@ -356,7 +358,9 @@ def plot_result(data):
     ax.legend(loc=1)
     autolabel(ax, bars)
 
-    plt.savefig("output/result.png")
+    if cfg["save_results_plot"]:
+        plt.savefig("output/result.png")
+
     plt.show()
 
 
