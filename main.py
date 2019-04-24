@@ -345,7 +345,7 @@ def plot_result(data):
         height = list(map(lambda x: (round(x[3][0], 2), round(x[3][1], 2)), filter(lambda x: x[2] == kernel, data)))
         height = [x for tuple in height for x in tuple]
 
-        bars = bars + list(ax.bar(x_data, height, width, color=colors[kernel_index], label=kernel))
+        bars = bars + list(ax.bar(x_data, height, width, color=colors[kernel_index], label=kernel + " kernel"))
 
     fig.set_size_inches(9, 6)
     ax.set_title('Text authorship detection scores')
@@ -358,6 +358,7 @@ def plot_result(data):
 
     plt.savefig("output/result.png")
     plt.show()
+
 
 # method from https://matplotlib.org
 def autolabel(ax, rects, xpos='center'):
